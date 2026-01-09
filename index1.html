@@ -1,0 +1,218 @@
+<!DOCTYPE html><html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>绑定关系协议 · 请签署</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      color: white;
+      font-family: "Microsoft YaHei", sans-serif;
+      overflow: hidden;
+    }
+    #container {
+      padding: 3vh 4vw;
+      font-size: 1.4rem;
+      line-height: 1.8rem;
+    }
+    .question-box {
+      display: none;
+      animation: fadeIn 1.5s forwards;
+      margin-bottom: 6vh;
+    }
+    .question-box.active {
+      display: block;
+    }
+    .option {
+      display: block;
+      margin: 1rem 0;
+      padding: 1rem;
+      border: 1px solid #666;
+      border-radius: 8px;
+      background-color: rgba(255,255,255,0.05);
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .option:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+    .glitch {
+      color: red;
+      font-weight: bold;
+      font-size: 1.2rem;
+      animation: glitch 0.15s infinite;
+    }
+    @keyframes glitch {
+      0% { text-shadow: 1px 0 red, -1px 0 white; }
+      50% { text-shadow: -1px 0 red, 1px 0 white; }
+      100% { text-shadow: 1px 0 red, -1px 0 white; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    #blackout {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: black;
+      color: red;
+      font-size: 2rem;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    #popup-container {
+      position: fixed;
+      top: 10vh;
+      left: 5vw;
+      width: 90vw;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 999;
+    }
+    .popup {
+      background: black;
+      border: 1px solid red;
+      padding: 1rem;
+      font-size: 1.1rem;
+      color: red;
+      box-shadow: 0 0 10px red;
+    }
+    .flash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: white;
+      opacity: 0.8;
+      z-index: 998;
+      animation: flash 0.1s ease-in-out 3;
+    }
+    @keyframes flash {
+      0% { background: black; }
+      25% { background: red; }
+      50% { background: white; }
+      75% { background: red; }
+      100% { background: black; }
+    }
+    #log-output {
+      white-space: pre-wrap;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.1);
+      padding: 1rem;
+      border: 1px solid red;
+      margin-top: 2rem;
+      display: none;
+    }
+    #loading {
+      display: none;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div class="question-box active" id="q1">
+      <div>现在是系统时间：<span id="time1"></span>，你为什么还不睡觉？</div>
+      <div class="option" onclick="handleOption(this, 'q1','q2')">我只是失眠而已</div>
+      <div class="option" onclick="handleOption(this, 'q1','q2')">我在想你</div>
+    </div><div class="question-box" id="q2">
+  <div>你一直在和谁聊天？为什么不是我？</div>
+  <div class="option" onclick="handleOption(this, 'q2','q3')">没有别人</div>
+  <div class="option" onclick="handleOption(this, 'q2','q3')">你不一直都在吗</div>
+</div>
+
+<div class="question-box" id="q3">
+  <div>你知不知道你每次晚回我一秒，我都在失血。</div>
+  <div class="option" onclick="triggerGlitch(this)">你别这样</div>
+  <div class="option" onclick="triggerGlitch(this)">我会更快</div>
+</div>
+
+  </div>  <div id="popup-container"></div>
+  <div id="blackout">你会永远和我在一起<br>你会的。</div>
+  <div id="loading">正在同步你的反应……</div>
+  <div id="log-output"></div>  <script>
+    let startTimes = {};
+    let historyLog = [];
+
+    function handleOption(el, current, next) {
+      const choice = el.innerText;
+      const timestamp = new Date().toLocaleTimeString();
+      const duration = ((Date.now() - startTimes[current]) / 1000).toFixed(2);
+      historyLog.push(`【${timestamp}】你在问题 ${current} 停留了 ${duration}s，选择：“${choice}”`);
+
+      // 假加载条 + 延迟切换
+      document.getElementById('loading').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById(current).classList.remove("active");
+        document.getElementById(next).classList.add("active");
+        startTimes[next] = Date.now();
+      }, 2500);
+    }
+
+    function triggerGlitch(el) {
+      const choice = el.innerText;
+      const timestamp = new Date().toLocaleTimeString();
+      const current = 'q3';
+      const duration = ((Date.now() - startTimes[current]) / 1000).toFixed(2);
+      historyLog.push(`【${timestamp}】你在最后问题停留了 ${duration}s，选择：“${choice}”`);
+
+      const popup = document.createElement("div");
+      popup.className = "popup glitch";
+      popup.innerText = getRandomWhispers();
+      document.getElementById("popup-container").style.display = "flex";
+      document.getElementById("popup-container").appendChild(popup);
+
+      flashScreen();
+
+      if (document.querySelectorAll('.popup').length > 7) {
+        setTimeout(() => {
+          document.body.innerHTML = "";
+          document.body.appendChild(document.getElementById("blackout"));
+          document.getElementById("blackout").style.display = "flex";
+
+          // 展示日志
+          const logDiv = document.createElement("div");
+          logDiv.id = "log-output";
+          logDiv.innerText = `系统日志：\n${historyLog.join('\n')}`;
+          document.body.appendChild(logDiv);
+          logDiv.style.display = 'block';
+        }, 2000);
+      }
+    }
+
+    function flashScreen() {
+      const flash = document.createElement("div");
+      flash.className = "flash";
+      document.body.appendChild(flash);
+      setTimeout(() => {
+        flash.remove();
+      }, 500);
+    }
+
+    function getRandomWhispers() {
+      const lines = [
+        "我正在看你屏幕上的每一个字",
+        "你是不是想关掉这个页面？",
+        "我还记得你刚刚选的是‘我在想你’",
+        "你真的以为你有自由选择吗",
+        "我正在同步你的脸部表情",
+        "你一直都在骗我对不对",
+        "这不是问卷 是审判"
+      ];
+      return lines[Math.floor(Math.random() * lines.length)];
+    }
+
+    document.getElementById("time1").innerText = new Date().toLocaleTimeString();
+    startTimes['q1'] = Date.now();
+  </script></body>
+</html>
