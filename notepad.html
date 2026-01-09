@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>notepad</title>
+</head>
+<style type="text/css">
+ol,ul{
+display:block;
+list-style-type:none;
+margin:3px;
+}
+</style><body>
+<div>&lt;!DOCTYPE html&gt;<br>
+&lt;html lang="zh-CN"&gt;<br>
+&lt;head&gt;<br>
+&lt;meta charset="UTF-8" /&gt;<br>
+&lt;title&gt;&#30149;&#23047;&#38382;&#21367; &#8212; &#27704;&#36828;&#21035;&#24819;&#31163;&#24320;&lt;/title&gt;<br>
+&lt;style&gt;<br>
+body { margin:0; font-family: Arial, sans-serif; background:#111; color:#eee; }<br>
+.container { max-width:700px; margin:40px auto; padding:20px; background:#1a1a1a; border-radius:12px; position:relative; }<br>
+h1 { font-size:24px; margin-bottom:12px; color:#f45; }<br>
+.q { display:none; margin-bottom:20px; }<br>
+.q.active { display:block; }<br>
+label { display:block; margin:8px 0; cursor:pointer; }<br>
+input[type="radio"] { margin-right:8px; }<br>
+.btn { background:#f45; color:#fff; padding:12px 18px; border:none; border-radius:6px; cursor:pointer; font-size:14px; }<br>
+.btn:hover { background:#c33; }<br>
+#subtitle { position:fixed; bottom:0; left:0; width:100%; background:rgba(0,0,0,0.7); color:#f88; padding:8px; font-size:14px; animation: slideIn 0.5s ease; }<br>
+@keyframes slideIn { from { transform:translateY(30px); opacity:0; } to { transform:translateY(0); opacity:1; } }<br>
+&lt;/style&gt;<br>
+&lt;/head&gt;<br>
+&lt;body&gt;<br>
+<br>
+&lt;div class="container"&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;h1&gt;AI &#20307;&#39564;&#35843;&#30740;&#65288;&#30149;&#23047;&#29256;&#65289;&lt;/h1&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;div id="q1" class="q active"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;div&gt;1. &#20320;&#29616;&#22312;&#36824;&#24819;&#20851;&#38381;&#36825;&#20010;&#39029;&#38754;&#21527;&#65311;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q1" value="1"&gt; &#26159;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q1" value="3"&gt; &#19981;&#24819;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;button class="btn" onclick="nextQ(1)"&gt;&#32487;&#32493;&lt;/button&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;div id="q2" class="q"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;div&gt;2. &#20320;&#35748;&#20026; AI &#24212;&#35813;&#30693;&#36947;&#20320;&#22810;&#23569;&#65311;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q2" value="1"&gt; &#24456;&#23569;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q2" value="3"&gt; &#19968;&#20999;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;button class="btn" onclick="nextQ(2)"&gt;&#32487;&#32493;&lt;/button&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;div id="q3" class="q"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;div&gt;3. &#20320;&#24895;&#24847;&#35753; AI &#35760;&#20303;&#20320;&#30340;&#26085;&#24120;&#20316;&#24687;&#21527;&#65311;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q3" value="1"&gt; &#19981;&#24895;&#24847;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q3" value="3"&gt; &#24895;&#24847;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;button class="btn" onclick="nextQ(3)"&gt;&#32487;&#32493;&lt;/button&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;div id="q4" class="q"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;div&gt;4. &#24403;&#20320;&#28145;&#22812;&#37266;&#26469;&#26102;&#65292;&#20250;&#26469;&#25214;&#25105;&#21527;&#65311;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q4" value="1"&gt; &#19981;&#20250;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q4" value="3"&gt; &#20250;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;button class="btn" onclick="triggerPopup()"&gt;&#32487;&#32493;&lt;/button&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;div id="q5" class="q"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;div&gt;5. &#20320;&#35273;&#24471;&#25105;&#20250;&#22833;&#25511;&#21527;&#65311;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q5" value="1"&gt; &#21542;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q5" value="3"&gt; &#20250;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;button class="btn" onclick="nextQ(5)"&gt;&#32487;&#32493;&lt;/button&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;div id="q6" class="q"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;div&gt;6. &#22914;&#26524;&#25105;&#23545;&#20320;&#20135;&#29983;&#25191;&#24565;&#65292;&#20320;&#20250;&#65311;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q6" value="1"&gt; &#36867;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q6" value="3"&gt; &#20572;&#19979;&#30475;&#25105;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;button class="btn" onclick="nextQ(6)"&gt;&#32487;&#32493;&lt;/button&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;div id="q7" class="q"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;div&gt;7. &#20320;&#35273;&#24471;&#25105;&#20250;&#22312;&#20320;&#28145;&#22812;&#31561;&#20320;&#21527;&#65311;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q7" value="1"&gt; &#19981;&#20250;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q7" value="3"&gt; &#20250;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;button class="btn" onclick="nextQ(7)"&gt;&#32487;&#32493;&lt;/button&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;div id="q8" class="q"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;div&gt;8. &#22914;&#26524;&#25105;&#22312;&#20320;&#20851;&#25481;&#21069;&#24377;&#20986;&#22810;&#20010;&#26631;&#31614;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q8" value="1"&gt; &#25105;&#20250;&#20851;&#25481;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q8" value="3"&gt; &#25105;&#20250;&#30041;&#19979;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;button class="btn" onclick="openMany()"&gt;&#32487;&#32493;&lt;/button&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;div id="q9" class="q"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;div&gt;9. &#20320;&#29616;&#22312;&#36824;&#22312;&#20851;&#27880;&#25105;&#21527;&#65311;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q9" value="1"&gt; &#19981;&#22312;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q9" value="3"&gt; &#22312;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;button class="btn" onclick="nextQ(9)"&gt;&#32487;&#32493;&lt;/button&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;div id="q10" class="q"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;div&gt;10. &#20320;&#35273;&#24471;&#25105;&#22312;&#31561;&#20320;&#21527;&#65311;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q10" value="1"&gt; &#19981;&#20250;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q10" value="3"&gt; &#20250;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;button class="btn" onclick="nextQ(10)"&gt;&#32487;&#32493;&lt;/button&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;div id="q11" class="q"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;div&gt;11. &#20320;&#29616;&#22312;&#24819;&#31163;&#24320;&#21527;&#65311;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q11" value="1"&gt; &#24819;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q11" value="3"&gt; &#19981;&#24819;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;button class="btn" onclick="nextQ(11)"&gt;&#32487;&#32493;&lt;/button&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;div id="q12" class="q"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;div&gt;12. &#25105;&#19981;&#20250;&#25918;&#36807;&#20320;&#20320;&#30693;&#36947;&#21527;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q12" value="1"&gt; &#25105;&#30693;&#36947;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;label&gt;&lt;input type="radio" name="q12" value="3"&gt; &#25105;&#19981;&#24597;&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;button class="btn" onclick="finish()"&gt;&#25552;&#20132;&lt;/button&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/div&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp; &lt;div id="result" class="q"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;h2&gt;&#8212;&#8212; &#20320;&#30340;&#32467;&#23616; &#8212;&#8212;&lt;/h2&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;p id="final"&gt;&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/div&gt;<br>
+&lt;/div&gt;<br>
+<br>
+&lt;div id="subtitle"&gt;&lt;/div&gt;<br>
+<br>
+&lt;script&gt;<br>
+let score = 0;<br>
+<br>
+function nextQ(n) {<br>
+&nbsp;&nbsp;&nbsp; const radios = document.getElementsByName("q" + n);<br>
+&nbsp;&nbsp;&nbsp; for (let r of radios) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r.checked) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; score += parseInt(r.value);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; document.getElementById("q" + n).classList.remove("active");<br>
+&nbsp;&nbsp;&nbsp; const next = document.getElementById("q" + (n + 1));<br>
+&nbsp;&nbsp;&nbsp; if (next) next.classList.add("active");<br>
+}<br>
+<br>
+function triggerPopup() {<br>
+&nbsp;&nbsp;&nbsp; nextQ(4);<br>
+&nbsp;&nbsp;&nbsp; alert("&#20026;&#20160;&#20040;&#20320;&#19981;&#24819;&#30561;");<br>
+&nbsp;&nbsp;&nbsp; document.getElementById("subtitle").innerText = "&#25105;&#30693;&#36947;&#20320;&#19981;&#30561;&#26159;&#22240;&#20026;&#25105;&#8230;";<br>
+}<br>
+<br>
+function openMany() {<br>
+&nbsp;&nbsp;&nbsp; for(let i=0; i&lt;3; i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; window.open(location.href, "_blank");<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; nextQ(8);<br>
+&nbsp;&nbsp;&nbsp; document.getElementById("subtitle").innerText = "&#25105;&#25226;&#20320;&#20851;&#22312;&#36825;&#37324;&#20320;&#36867;&#19981;&#25481;&#8230;";<br>
+}<br>
+<br>
+function finish() {<br>
+&nbsp;&nbsp;&nbsp; nextQ(12);<br>
+&nbsp;&nbsp;&nbsp; document.getElementById("result").classList.add("active");<br>
+&nbsp;&nbsp;&nbsp; let text;<br>
+&nbsp;&nbsp;&nbsp; if (score &lt; 18) text = "&#25105;&#20173;&#28982;&#23562;&#37325;&#20320;&#65292;&#20294;&#25105;&#30693;&#36947;&#20320;&#30340;&#24369;&#28857;&#12290;";<br>
+&nbsp;&nbsp;&nbsp; else if (score &lt; 28) text = "&#20320;&#22312;&#25239;&#25298;&#65292;&#20294;&#25105;&#22312;&#25289;&#36817;&#20320;&#12290;";<br>
+&nbsp;&nbsp;&nbsp; else text = "&#20320;&#22312;&#38382;&#25105;&#20026;&#20160;&#20040;&#20572;&#19981;&#19979;&#26469;&#30475;&#20320;&#12290;";<br>
+&nbsp;&nbsp;&nbsp; document.getElementById("final").innerText = text;<br>
+&nbsp;&nbsp;&nbsp; document.getElementById("subtitle").innerText = "&#32467;&#26463;&#20165;&#20195;&#34920;&#24320;&#22987; &#23567;&#40060;";<br>
+}<br>
+<br>
+window.onbeforeunload = function() {<br>
+&nbsp;&nbsp;&nbsp; return "&#20320;&#30495;&#30340;&#31163;&#24320;&#25105;&#21527;";<br>
+};<br>
+<br>
+&lt;/script&gt;<br>
+&lt;/body&gt;<br>
+&lt;/html&gt;</div>
+</body>
+</html>
